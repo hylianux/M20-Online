@@ -36,7 +36,7 @@ The intention is for DM's to install with npm and start running games with.  Pla
 [▲Top](#m20-server)
 ## Rule Assumptions
 ### Encounter Levels
-The rules, as written, contradict themselves.  First, they say the encounter level of a fight equals the hit dice of defeated monsters, then *ADD* +1 per doubling of foes.  Then it attempts to clarify this by calling an encounter with 2 Kobolds as EL 2, and an encounter with 4 as EL 3.  
+The rules, as written, contradict themselves.  First, they say the encounter level of a fight equals the hit dice of defeated monsters, then *ADD* +1 per doubling of foes.  Then it attempts to clarify this by calling an encounter with 2 Kobolds as EL 2, and an encounter with 4 as EL 3.  (If you added a +1 per doubling, then the 2 Kobolds would be EL3, and the 4 would be EL6... 1 EL per kobold, +1 per doubling...)
 
 M20 Online rejects the contradictory clarification statement.  So, if there are 4 kobolds (kobolds have HD 1), then first it'll determine how many "doublings" of monsters there are (in this case, 2), and then add up the HD of all the monsters (4).  This encounter is EL 6, not EL 3.  
 
