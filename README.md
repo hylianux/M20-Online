@@ -51,9 +51,9 @@ The determination of monster doublings will be determined as follows:
 		if (enemiesTemp>=2){
 	  	enemiesTemp = Math.floor(enemiesTemp/2);
 	  	output++;
-	  } else {
+	    } else {
 			break;
-	  }
+	    }
 	}
 	return output;
 ```
