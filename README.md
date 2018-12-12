@@ -44,18 +44,18 @@ M20 Online rejects the contradictory clarification statement.  So, if there are 
 
 The determination of monster doublings will be determined as follows: 
 ```javascript
-	var output = 0;
-	var enemies = 16;
-	var enemiesTemp = enemies;
-	while (true){
-		if (enemiesTemp>=2){
-	  	enemiesTemp = Math.floor(enemiesTemp/2);
-	  	output++;
-	    } else {
-            break;
-	    }
-	}
-	return output;
+var output = 0;
+var enemies = 16;
+var enemiesTemp = enemies;
+while (true){
+    if (enemiesTemp>=2){
+    enemiesTemp = Math.floor(enemiesTemp/2);
+    output++;
+    } else {
+        break;
+    }
+}
+return output;
 ```
 But, if you prefer your own version of EL's, then place EL's for any given monster encounter in the `overwriteEL` variable.  
 
@@ -83,28 +83,28 @@ The app, by default, assumes that moving and attacking are part of the same turn
 ## Rolls
 ### Attack Rolls
 ```javascript
-	var attacker = character[x];
-	if (attacker.mainHand.type==="melee" && attacker.mainHand.hands===1 && !attacker.offHand){
-		if (!attacker.useDex){
-			var totalStrength = attacker.strength;
-			var totalAttackMod = 0;
-			for (var i=0; i<attacker.effects.length; ++i){
-				totalStrength+=attacker.effects[i].strengthMod;
-				totalAttackMod+=attacker.effects[i].attackMod;
-				totalAttackMod+=attacker.mainHand.attackMod;
-			}
-			var strModifier = Math.floor((totalStrength-10)/2);
-			var totalMod = totalAttackMod + strModifier;
-			var rolls[];
-			var multiAttackMinus = 0;
-			while (totalMod>=1){
-				rolls.push('1d20 + '+ strModifier + ' + ' + totalAttackMod + ' + ' + multiAttackMinus);
-				totalMod-=5;
-				multiAttackMinus-=5;
-			}
-			return rolls;
-		}
-	}
+var attacker = character[x];
+if (attacker.mainHand.type==="melee" && attacker.mainHand.hands===1 && !attacker.offHand){
+    if (!attacker.useDex){
+        var totalStrength = attacker.strength;
+        var totalAttackMod = 0;
+        for (var i=0; i<attacker.effects.length; ++i){
+            totalStrength+=attacker.effects[i].strengthMod;
+            totalAttackMod+=attacker.effects[i].attackMod;
+            totalAttackMod+=attacker.mainHand.attackMod;
+        }
+        var strModifier = Math.floor((totalStrength-10)/2);
+        var totalMod = totalAttackMod + strModifier;
+        var rolls[];
+        var multiAttackMinus = 0;
+        while (totalMod>=1){
+            rolls.push('1d20 + '+ strModifier + ' + ' + totalAttackMod + ' + ' + multiAttackMinus);
+            totalMod-=5;
+            multiAttackMinus-=5;
+        }
+        return rolls;
+    }
+}
 ```
 [▲Top](#m20-server)
 ## Object Model
@@ -120,237 +120,237 @@ The app, by default, assumes that moving and attacking are part of the same turn
     "dmName" : string,  
     "dmPrivateID" : string,
     "log" : [ 
-	    {
-	        "playerName": string,
-	        "charName": string,
-	        "timestamp": number,
-	        "message": string
-	    }
+        {
+            "playerName": string,
+            "charName": string,
+            "timestamp": number,
+            "message": string
+        }
     ], 
     "encounters" : [
-		{
-			"name" : string,
-			"status (inactive, active, completed)" : string,
-			"monsters" : [
-				{
-					"name" : string,
-					"picUrl" : string,
-					"hp" : number,
-					"maxhp" : number,
-					"hitDice (number) " : number,
-					"hpRoll (dX + Y)" : string,
-					"hpavg" : number,
-					"ac" : number,
-					"status" : string,
-					"attacks" : [
-						{
-							"name" : string,
-							"toHit" : number,
-							"damage" : [
-								{
-									"name (default: base)" : string,
-									"roll (XdY+Z)" : string
-								}
-							]
-						}
-					],
-					"inventory" : {
-						"weapons" : [
-							{
-								"name" : string,
-								"description": string,
-								"type (melee or missile)" : string,
-								"hands (1 or 2, how many hands it takes to hold it)" : number,
-								"attackMod" : number,
-								"damageMod" : number,
-								"damage" : [
-									{
-										"name" : string,
-										"roll (XdY + Z)" : string
-									}
-								],
-								"value" : {
-									"platinum" : number,
-									"gold" : number,
-									"electrum" : number,
-									"silver" : number,
-									"copper" : number
-								}
-								"globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
-									"name" : string,
-									"description" : string,
-									"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-									"removeable (boolean)" : string,
-									"source (weapon)" : string,
-									"slot (main hand)" : string,
-									"range (distance of effect)" : number,
-									"strengthMod" : number,
-									"dexterityMod" : number,
-									"mindMod" : number,
-									"physicalMod" : number,
-									"subterfugeMod" : number,
-									"knowledgeMod" : number,
-									"communicationMod" : number,
-									"survivalMod" : number,
-									"savingThrowMod" : number,
-									"attackMod" : number,
-									"dualAttackMod" : number,
-									"acMod" : number,
-									"skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
-										{	
-											"skill" : string,
-											"stat" : string,
-											"mod" : number
-										}
-									]
-									"damageMod" : number
-								}
-							}
-						],
-						"wearables" : [
-							{	
-								"name" : string,
-								"description" : string,
-								"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-								"removeable" : boolean,
-								"source (clothing)"  : string,
-								"slot (off hand, chest, left finger, right finger, left bracelet, right bracelet, neck, shoulders, head, underwear, cape, pants, socks, shoes, anklet, left toe ring, right toe ring, nose ring, eyebrow ring, left earring, right earring, lip ring)" : string,
-								"range (distance of effect)" : number,
-								"strengthMod" : number,
-								"dexterityMod" : number,
-								"mindMod" : number,
-								"physicalMod" : number,
-								"subterfugeMod" : number,
-								"knowledgeMod" : number,
-								"communicationMod" : number,
-								"survivalMod" : number,
-								"savingThrowMod" : number,
-								"attackMod" : number,
-								"dualAttackMod" : number,
-								"acMod" : number,
-								"skillComboMod (in case there are specific skill+stat combos that will have minuses)" : 
-								[
-									{
-										"skill" : string,
-										"stat" : string,
-										"mod" : number
-									}
-								], 
-								"damageMod" : number
-							}
-						]
-					}
-				}
-			],
-			"treasure" : {
-					"money" : {
-						"platinum" : number,
-						"gold" : number,
-						"electrum" : number,
-						"silver" : number,
-						"copper" : number
-					},
-					"weapons" : [
-						{
-							"name" : string,
-							"description": string,
-							"type (melee or missile)" : string,
-							"hands (1 or 2, how many hands it takes to hold it)" : number,
-							"attackMod" : number,
-							"damageMod" : number,
-							"damage" : [
-								{
-									"name" : string,
-									"roll (XdY + Z)" : string
-								}
-							],
-							"value" : {
-								"platinum" : number,
-								"gold" : number,
-								"electrum" : number,
-								"silver" : number,
-								"copper" : number
-							}
-							"globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
-								"name" : string,
-								"description" : string,
-								"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-								"removeable (boolean)" : string,
-								"source (weapon)" : string,
-								"slot (main hand)" : string,
-								"range (distance of effect)" : number,
-								"strengthMod" : number,
-								"dexterityMod" : number,
-								"mindMod" : number,
-								"physicalMod" : number,
-								"subterfugeMod" : number,
-								"knowledgeMod" : number,
-								"communicationMod" : number,
-								"survivalMod" : number,
-								"savingThrowMod" : number,
-								"attackMod" : number,
-								"dualAttackMod" : number,
-								"acMod" : number,
-								"skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
-									{	
-										"skill" : string,
-										"stat" : string,
-										"mod" : number
-									}
-								]
-								"damageMod" : number
-							}
-						}
-					],
-					"wearables" : [
-						{	
-							"name" : string,
-							"description" : string,
-							"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-							"removeable" : boolean,
-							"source (clothing)"  : string,
-							"slot (off hand, chest, left finger, right finger, left bracelet, right bracelet, neck, shoulders, head, underwear, cape, pants, socks, shoes, anklet, left toe ring, right toe ring, nose ring, eyebrow ring, left earring, right earring, lip ring)" : string,
-							"range (distance of effect)" : number,
-							"strengthMod" : number,
-							"dexterityMod" : number,
-							"mindMod" : number,
-							"physicalMod" : number,
-							"subterfugeMod" : number,
-							"knowledgeMod" : number,
-							"communicationMod" : number,
-							"survivalMod" : number,
-							"savingThrowMod" : number,
-							"attackMod" : number,
-							"dualAttackMod" : number,
-							"acMod" : number,
-							"skillComboMod (in case there are specific skill+stat combos that will have minuses)" : 
-							[
-								{
-									"skill" : string,
-									"stat" : string,
-									"mod" : number
-								}
-							], 
-							"damageMod" : number
-						}
-					],
-					"misc" : [
-						{	
-							"name" : string,
-							"description" : string,
-							"quantity" : number,
-							"value" : {
-								"platinum" : number,
-								"gold" : number,
-								"electrum" : number,
-								"silver" : number,
-								"copper" : number
-							}
-						}
-					]
-				}
-			}
-		}
+        {
+            "name" : string,
+            "status (inactive, active, completed)" : string,
+            "monsters" : [
+                {
+                    "name" : string,
+                    "picUrl" : string,
+                    "hp" : number,
+                    "maxhp" : number,
+                    "hitDice (number) " : number,
+                    "hpRoll (dX + Y)" : string,
+                    "hpavg" : number,
+                    "ac" : number,
+                    "status" : string,
+                    "attacks" : [
+                        {
+                            "name" : string,
+                            "toHit" : number,
+                            "damage" : [
+                                {
+                                    "name (default: base)" : string,
+                                    "roll (XdY+Z)" : string
+                                }
+                            ]
+                        }
+                    ],
+                    "inventory" : {
+                        "weapons" : [
+                            {
+                                "name" : string,
+                                "description": string,
+                                "type (melee or missile)" : string,
+                                "hands (1 or 2, how many hands it takes to hold it)" : number,
+                                "attackMod" : number,
+                                "damageMod" : number,
+                                "damage" : [
+                                    {
+                                        "name" : string,
+                                        "roll (XdY + Z)" : string
+                                    }
+                                ],
+                                "value" : {
+                                    "platinum" : number,
+                                    "gold" : number,
+                                    "electrum" : number,
+                                    "silver" : number,
+                                    "copper" : number
+                                }
+                                "globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
+                                    "name" : string,
+                                    "description" : string,
+                                    "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                                    "removeable (boolean)" : string,
+                                    "source (weapon)" : string,
+                                    "slot (main hand)" : string,
+                                    "range (distance of effect)" : number,
+                                    "strengthMod" : number,
+                                    "dexterityMod" : number,
+                                    "mindMod" : number,
+                                    "physicalMod" : number,
+                                    "subterfugeMod" : number,
+                                    "knowledgeMod" : number,
+                                    "communicationMod" : number,
+                                    "survivalMod" : number,
+                                    "savingThrowMod" : number,
+                                    "attackMod" : number,
+                                    "dualAttackMod" : number,
+                                    "acMod" : number,
+                                    "skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
+                                        {	
+                                            "skill" : string,
+                                            "stat" : string,
+                                            "mod" : number
+                                        }
+                                    ]
+                                    "damageMod" : number
+                                }
+                            }
+                        ],
+                        "wearables" : [
+                            {	
+                                "name" : string,
+                                "description" : string,
+                                "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                                "removeable" : boolean,
+                                "source (clothing)"  : string,
+                                "slot (off hand, chest, left finger, right finger, left bracelet, right bracelet, neck, shoulders, head, underwear, cape, pants, socks, shoes, anklet, left toe ring, right toe ring, nose ring, eyebrow ring, left earring, right earring, lip ring)" : string,
+                                "range (distance of effect)" : number,
+                                "strengthMod" : number,
+                                "dexterityMod" : number,
+                                "mindMod" : number,
+                                "physicalMod" : number,
+                                "subterfugeMod" : number,
+                                "knowledgeMod" : number,
+                                "communicationMod" : number,
+                                "survivalMod" : number,
+                                "savingThrowMod" : number,
+                                "attackMod" : number,
+                                "dualAttackMod" : number,
+                                "acMod" : number,
+                                "skillComboMod (in case there are specific skill+stat combos that will have minuses)" : 
+                                [
+                                    {
+                                        "skill" : string,
+                                        "stat" : string,
+                                        "mod" : number
+                                    }
+                                ], 
+                                "damageMod" : number
+                            }
+                        ]
+                    }
+                }
+            ],
+            "treasure" : {
+                    "money" : {
+                        "platinum" : number,
+                        "gold" : number,
+                        "electrum" : number,
+                        "silver" : number,
+                        "copper" : number
+                    },
+                    "weapons" : [
+                        {
+                            "name" : string,
+                            "description": string,
+                            "type (melee or missile)" : string,
+                            "hands (1 or 2, how many hands it takes to hold it)" : number,
+                            "attackMod" : number,
+                            "damageMod" : number,
+                            "damage" : [
+                                {
+                                    "name" : string,
+                                    "roll (XdY + Z)" : string
+                                }
+                            ],
+                            "value" : {
+                                "platinum" : number,
+                                "gold" : number,
+                                "electrum" : number,
+                                "silver" : number,
+                                "copper" : number
+                            }
+                            "globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
+                                "name" : string,
+                                "description" : string,
+                                "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                                "removeable (boolean)" : string,
+                                "source (weapon)" : string,
+                                "slot (main hand)" : string,
+                                "range (distance of effect)" : number,
+                                "strengthMod" : number,
+                                "dexterityMod" : number,
+                                "mindMod" : number,
+                                "physicalMod" : number,
+                                "subterfugeMod" : number,
+                                "knowledgeMod" : number,
+                                "communicationMod" : number,
+                                "survivalMod" : number,
+                                "savingThrowMod" : number,
+                                "attackMod" : number,
+                                "dualAttackMod" : number,
+                                "acMod" : number,
+                                "skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
+                                    {	
+                                        "skill" : string,
+                                        "stat" : string,
+                                        "mod" : number
+                                    }
+                                ]
+                                "damageMod" : number
+                            }
+                        }
+                    ],
+                    "wearables" : [
+                        {	
+                            "name" : string,
+                            "description" : string,
+                            "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                            "removeable" : boolean,
+                            "source (clothing)"  : string,
+                            "slot (off hand, chest, left finger, right finger, left bracelet, right bracelet, neck, shoulders, head, underwear, cape, pants, socks, shoes, anklet, left toe ring, right toe ring, nose ring, eyebrow ring, left earring, right earring, lip ring)" : string,
+                            "range (distance of effect)" : number,
+                            "strengthMod" : number,
+                            "dexterityMod" : number,
+                            "mindMod" : number,
+                            "physicalMod" : number,
+                            "subterfugeMod" : number,
+                            "knowledgeMod" : number,
+                            "communicationMod" : number,
+                            "survivalMod" : number,
+                            "savingThrowMod" : number,
+                            "attackMod" : number,
+                            "dualAttackMod" : number,
+                            "acMod" : number,
+                            "skillComboMod (in case there are specific skill+stat combos that will have minuses)" : 
+                            [
+                                {
+                                    "skill" : string,
+                                    "stat" : string,
+                                    "mod" : number
+                                }
+                            ], 
+                            "damageMod" : number
+                        }
+                    ],
+                    "misc" : [
+                        {	
+                            "name" : string,
+                            "description" : string,
+                            "quantity" : number,
+                            "value" : {
+                                "platinum" : number,
+                                "gold" : number,
+                                "electrum" : number,
+                                "silver" : number,
+                                "copper" : number
+                            }
+                        }
+                    ]
+                }
+            }
+        }
     ]
 }
 ```
@@ -386,182 +386,182 @@ The app, by default, assumes that moving and attacking are part of the same turn
 ### LokiJS Collection name: session
 ```json
 {
-	"gameID" : string,
-	"name" : string,
-	"dmName" : string,
-	"dmPrivateID" : string,
-	"encounterLevels" : number, // (this is how many you have accumulated 
-								//	before cashing out)
-	"characters" : [
-		{
-			"name" : string,
-			"playerName" : string,
-			"privateID" : string,
-			"level" : number,
-			"hp" : number,
-			"maxhp" : number,
-			"effect" : [
-				{	
-					"name" : string,
-					"description" : string,
-					"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-					"removeable" : boolean,
-					"source (weapon, clothing, aura, racial modifier, class modifier, status effect)"  : string,
-					"slot (string, for weapon and armor types, options are main hand, off hand, both hands, chest, left finger, right finger, left bracelet, right bracelet, neck, shoulders, head, underwear, cape, pants, socks, shoes, anklet, left toe ring, right toe ring, nose ring, eyebrow ring, left earring, right earring, lip ring, aura)" : string,
-					"range (distance of effect)" : number,
-					"strengthMod" : number,
-					"dexterityMod" : number,
-					"mindMod" : number,
-					"physicalMod" : number,
-					"subterfugeMod" : number,
-					"knowledgeMod" : number,
-					"communicationMod" : number,
-					"survivalMod" : number,
-					"savingThrowMod" : number,
-					"attackMod" : number,
-					"dualAttackMod" : number,
-					"acMod" : number,
-					"skillComboMod (in case there are specific skill+stat combos that will have minuses)" [
-						{
-							"skill" : string,
-							"stat" : string,
-							"mod" : number
-						}
-					], 
-					"damageMod" : number
-				}
-			],
-			"strength" : number,
-			"dexterity" : number,
-			"mind" : number,
-			"class" : string,
-			"race" : string,
-			"mainHand" : {
-				"name" : string,
-				"description": string,
-				"type (melee or missile)" : string,
-				"hands (1 or 2, how many hands it takes to hold it)" : number,
-				"attackMod" : number,
-				"damageMod" : number,
-				"damage" : [
-					{
-						"name" : string,
-						"roll (XdY + Z)" : string
-					}
-				],
-				"value" : {
-					"platinum" : number,
-					"gold" : number,
-					"electrum" : number,
-					"silver" : number,
-					"copper" : number
-				}
-				"globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
-					"name" : string,
-					"description" : string,
-					"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-					"removeable (boolean)" : string,
-					"source (weapon)" : string,
-					"slot (main hand)" : string,
-					"range (distance of effect)" : number,
-					"strengthMod" : number,
-					"dexterityMod" : number,
-					"mindMod" : number,
-					"physicalMod" : number,
-					"subterfugeMod" : number,
-					"knowledgeMod" : number,
-					"communicationMod" : number,
-					"survivalMod" : number,
-					"savingThrowMod" : number,
-					"attackMod" : number,
-					"dualAttackMod" : number,
-					"acMod" : number,
-					"skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
-						{	
-							"skill" : string,
-							"stat" : string,
-							"mod" : number
-						}
-					]
-					"damageMod" : number
-				}
-			},
-			"offHand" : {
-				"name" : string,
-				"description": string,
-				"type (melee or missile)" : string,
-				"hands (1 or 2, how many hands it takes to hold it)" : number,
-				"attackMod" : number,
-				"damageMod" : number,
-				"damage" : [
-					{
-						"name" : string,
-						"roll (XdY + Z)" : string
-					}
-				],
-				"value" : {
-					"platinum" : number,
-					"gold" : number,
-					"electrum" : number,
-					"silver" : number,
-					"copper" : number
-				}
-				"globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
-					"name" : string,
-					"description" : string,
-					"alignment (an integer... positive, negative, or 0 for neutral)" : number,
-					"removeable (boolean)" : string,
-					"source (weapon)" : string,
-					"slot (off hand)" : string,
-					"range (distance of effect)" : number,
-					"strengthMod" : number,
-					"dexterityMod" : number,
-					"mindMod" : number,
-					"physicalMod" : number,
-					"subterfugeMod" : number,
-					"knowledgeMod" : number,
-					"communicationMod" : number,
-					"survivalMod" : number,
-					"savingThrowMod" : number,
-					"attackMod" : number,
-					"dualAttackMod" : number,
-					"acMod" : number,
-					"skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
-						{	
-							"skill" : string,
-							"stat" : string,
-							"mod" : number
-						}
-					]
-					"damageMod" : number
-				}
-			},
-			"money" : {
-				"platinum" : number,
-				"gold" : number,
-				"electrum" : number,
-				"silver" : number,
-				"copper" : number
-			},
-			"inventory" : [
-				{
-					"name"
-					"description"
-					"quantity"
-					"value" : {
-						"platinum" : number,
-						"gold" : number,
-						"electrum" : number,
-						"silver" : number,
-						"copper" : number
-					}
-				}
-			]
-		}
-	],
-	"encounter" : { 
-		//populate from game.encounters[x]
-	} 
+    "gameID" : string,
+    "name" : string,
+    "dmName" : string,
+    "dmPrivateID" : string,
+    "encounterLevels" : number, // (this is how many you have accumulated 
+                                //	before cashing out)
+    "characters" : [
+        {
+            "name" : string,
+            "playerName" : string,
+            "privateID" : string,
+            "level" : number,
+            "hp" : number,
+            "maxhp" : number,
+            "effect" : [
+                {	
+                    "name" : string,
+                    "description" : string,
+                    "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                    "removeable" : boolean,
+                    "source (weapon, clothing, aura, racial modifier, class modifier, status effect)"  : string,
+                    "slot (string, for weapon and armor types, options are main hand, off hand, both hands, chest, left finger, right finger, left bracelet, right bracelet, neck, shoulders, head, underwear, cape, pants, socks, shoes, anklet, left toe ring, right toe ring, nose ring, eyebrow ring, left earring, right earring, lip ring, aura)" : string,
+                    "range (distance of effect)" : number,
+                    "strengthMod" : number,
+                    "dexterityMod" : number,
+                    "mindMod" : number,
+                    "physicalMod" : number,
+                    "subterfugeMod" : number,
+                    "knowledgeMod" : number,
+                    "communicationMod" : number,
+                    "survivalMod" : number,
+                    "savingThrowMod" : number,
+                    "attackMod" : number,
+                    "dualAttackMod" : number,
+                    "acMod" : number,
+                    "skillComboMod (in case there are specific skill+stat combos that will have minuses)" [
+                        {
+                            "skill" : string,
+                            "stat" : string,
+                            "mod" : number
+                        }
+                    ], 
+                    "damageMod" : number
+                }
+            ],
+            "strength" : number,
+            "dexterity" : number,
+            "mind" : number,
+            "class" : string,
+            "race" : string,
+            "mainHand" : {
+                "name" : string,
+                "description": string,
+                "type (melee or missile)" : string,
+                "hands (1 or 2, how many hands it takes to hold it)" : number,
+                "attackMod" : number,
+                "damageMod" : number,
+                "damage" : [
+                    {
+                        "name" : string,
+                        "roll (XdY + Z)" : string
+                    }
+                ],
+                "value" : {
+                    "platinum" : number,
+                    "gold" : number,
+                    "electrum" : number,
+                    "silver" : number,
+                    "copper" : number
+                }
+                "globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
+                    "name" : string,
+                    "description" : string,
+                    "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                    "removeable (boolean)" : string,
+                    "source (weapon)" : string,
+                    "slot (main hand)" : string,
+                    "range (distance of effect)" : number,
+                    "strengthMod" : number,
+                    "dexterityMod" : number,
+                    "mindMod" : number,
+                    "physicalMod" : number,
+                    "subterfugeMod" : number,
+                    "knowledgeMod" : number,
+                    "communicationMod" : number,
+                    "survivalMod" : number,
+                    "savingThrowMod" : number,
+                    "attackMod" : number,
+                    "dualAttackMod" : number,
+                    "acMod" : number,
+                    "skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
+                        {	
+                            "skill" : string,
+                            "stat" : string,
+                            "mod" : number
+                        }
+                    ]
+                    "damageMod" : number
+                }
+            },
+            "offHand" : {
+                "name" : string,
+                "description": string,
+                "type (melee or missile)" : string,
+                "hands (1 or 2, how many hands it takes to hold it)" : number,
+                "attackMod" : number,
+                "damageMod" : number,
+                "damage" : [
+                    {
+                        "name" : string,
+                        "roll (XdY + Z)" : string
+                    }
+                ],
+                "value" : {
+                    "platinum" : number,
+                    "gold" : number,
+                    "electrum" : number,
+                    "silver" : number,
+                    "copper" : number
+                }
+                "globalEffect (does equipping this weapon give you bonuses to anything?  maybe it's cursed and creating negatives?)" : {
+                    "name" : string,
+                    "description" : string,
+                    "alignment (an integer... positive, negative, or 0 for neutral)" : number,
+                    "removeable (boolean)" : string,
+                    "source (weapon)" : string,
+                    "slot (off hand)" : string,
+                    "range (distance of effect)" : number,
+                    "strengthMod" : number,
+                    "dexterityMod" : number,
+                    "mindMod" : number,
+                    "physicalMod" : number,
+                    "subterfugeMod" : number,
+                    "knowledgeMod" : number,
+                    "communicationMod" : number,
+                    "survivalMod" : number,
+                    "savingThrowMod" : number,
+                    "attackMod" : number,
+                    "dualAttackMod" : number,
+                    "acMod" : number,
+                    "skillComboMod (in case there are specific skill+stat combos that will have minuses)" : [
+                        {	
+                            "skill" : string,
+                            "stat" : string,
+                            "mod" : number
+                        }
+                    ]
+                    "damageMod" : number
+                }
+            },
+            "money" : {
+                "platinum" : number,
+                "gold" : number,
+                "electrum" : number,
+                "silver" : number,
+                "copper" : number
+            },
+            "inventory" : [
+                {
+                    "name"
+                    "description"
+                    "quantity"
+                    "value" : {
+                        "platinum" : number,
+                        "gold" : number,
+                        "electrum" : number,
+                        "silver" : number,
+                        "copper" : number
+                    }
+                }
+            ]
+        }
+    ],
+    "encounter" : { 
+        //populate from game.encounters[x]
+    } 
 }
 ```
 [▲Top](#m20-server)
