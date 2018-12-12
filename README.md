@@ -2,20 +2,23 @@
 Yet another js-based tactics rpg.
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Plugins and Tools](#plugins-and-tools)
-3. [Rule Assumptions](#rule-assumptions)\
-	3.1 [Encounter Levels](#encounter-levels)\
-	3.2 [Encounters](#encounters)\
-	3.3 [Saving Throws](#saving-throws)\
-	3.4 [Distance](#distance)
-4. [Rolls](#rolls)\
-	4.1 [Attack Rolls](#attack-rolls)
-5. [Object Tree](#object-model)\
-	5.1 [UnQLite Collection name: game](#unqlite-collection-name-game)\
-	5.2 [UnQLite Collection name: monsters](#unqlite-collection-name-monsters)\
-	5.3 [LokiJS Collection name: session](#lokijs-collection-name-session)
-6. [Status Effects](#status-effects)
+- [M20-Server](#m20-server)
+    - [Table of Contents](#table-of-contents)
+    - [Introduction](#introduction)
+    - [Plugins and Tools](#plugins-and-tools)
+    - [Rule Assumptions](#rule-assumptions)
+        - [Encounter Levels](#encounter-levels)
+        - [Encounters](#encounters)
+        - [Saving throws](#saving-throws)
+        - [Distance](#distance)
+    - [Rolls](#rolls)
+        - [Attack Rolls](#attack-rolls)
+    - [Object Model](#object-model)
+        - [TingoDB Collection name: game](#tingodb-collection-name-game)
+        - [TingoDB Collection name: monsters](#tingodb-collection-name-monsters)
+        - [LokiJS Collection name: session](#lokijs-collection-name-session)
+    - [Status Effects](#status-effects)
+    - [Performance and Scaling](#performance-and-scaling)
 ## Introduction 
 This document will serve as a reference to explain the design of the M20 online application.
 
@@ -36,7 +39,7 @@ The intention is for DM's to install with npm and start running games with.  Pla
 [▲Top](#m20-server)
 ## Rule Assumptions
 ### Encounter Levels
-The rules, as written, contradict themselves.  First, they say the encounter level of a fight equals the hit dice of defeated monsters, then *ADD* +1 per doubling of foes.  Then it attempts to clarify this by calling an encounter with 2 Kobolds as EL 2, and an encounter with 4 as EL 3.  (If you added a +1 per doubling, then the 2 Kobolds would be EL3, and the 4 would be EL6... 1 EL per kobold, +1 per doubling...)
+The rules, as written, contradict themselves.  First, they say the encounter level of a fight equals the hit dice of defeated monsters, then *ADD* +1 per doubling of foes.  Then it attempts to clarify this by calling an encounter with 2 Kobolds as EL 2, and an encounter with 4 as EL 3.  
 
 M20 Online rejects the contradictory clarification statement.  So, if there are 4 kobolds (kobolds have HD 1), then first it'll determine how many "doublings" of monsters there are (in this case, 2), and then add up the HD of all the monsters (4).  This encounter is EL 6, not EL 3.  
 
@@ -109,7 +112,7 @@ The app, by default, assumes that moving and attacking are part of the same turn
 > Note: "mod" in this case means "modification", not "modifier".  It represents a miscellaneous modifier on a given stat, skill, or roll.
 
 [▲Top](#m20-server)
-### UnQLite Collection name: game
+### TingoDB Collection name: game
 >Note: encounters have a treasure object containing everything in the encounter that you wish the players to loot upon completion of the encounter.  If you put any weapons or armor on the monsters themselves, the bonuses and malusus granted by the items will be applied to the monster.  Items in a monster's inventory will not get added to the loot pile.  You'll need to add that to the treasure object.
 ```json
 {    
@@ -353,7 +356,7 @@ The app, by default, assumes that moving and attacking are part of the same turn
 }
 ```
 [▲Top](#m20-server)
-### UnQLite Collection name: monsters
+### TingoDB Collection name: monsters
 >Note: This collection won't have their inventory.  That sort of thing is decided on the fly anyway.  You can add equipment/inventory when you add them to the encounters.
 ```json
 {
@@ -573,7 +576,7 @@ As a DM, you're welcome to put any custom status effect on a player as you choos
 ## Performance and Scaling
 M20 Online uses LokiJS for its in-game use.  Speed was the most important aspect in choosing a database, so LokiJS really fit the bill here.  
 
-But, as you know, chat logs can get really long.  The best option here is file storage (UnQLite) so you don't run out of memory.  You'll still be able to scroll back in the chat history.  As you scroll up, you'll get access to the previous 50 entries.  Scroll up again, and you'll lose the last 50 entries until you scroll back down again (or click the "bottom" button).  you'll only ever see 50-100 chat messages at any given time.  
+But, as you know, chat logs can get really long.  The best option here is file storage (TingoDB) so you don't run out of memory.  You'll still be able to scroll back in the chat history.  As you scroll up, you'll get access to the previous 50 entries.  Scroll up again, and you'll lose the last 50 entries until you scroll back down again (or click the "bottom" button).  you'll only ever see 50-100 chat messages at any given time.  
 
 
 *[M20]: Microlite20
