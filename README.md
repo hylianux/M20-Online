@@ -5,7 +5,7 @@ Yet another js-based tactics rpg.
 1. [Introduction](#introduction)
 2. [Plugins and Tools](#plugins-and-tools)
 3. [Rule Assumptions](#rule-assumptions)
-	3.1 [Encounter Levels](#encounter-levels)
+	3.1 [Encounter Levels](#encounter-levels)	
 	3.2 [Encounters](#encounters)
 	3.3 [Saving Throws](#saving-throws)
 	3.4 [Distance](#distance)
