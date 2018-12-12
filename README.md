@@ -1,9 +1,8 @@
 # M20-Server
 Yet another js-based tactics rpg.
 
-## Table of Contents
+## Table of Contents  <!-- omit in toc --> 
 - [M20-Server](#m20-server)
-    - [Table of Contents](#table-of-contents)
     - [Introduction](#introduction)
     - [Plugins and Tools](#plugins-and-tools)
     - [Rule Assumptions](#rule-assumptions)
