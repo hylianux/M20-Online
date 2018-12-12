@@ -2,20 +2,20 @@
 Yet another js-based tactics rpg.
 
 ## Table of Contents
-1. [Introduction](#introduction)\
-2. [Plugins and Tools](#plugins-and-tools)\
+1. [Introduction](#introduction)
+2. [Plugins and Tools](#plugins-and-tools)
 3. [Rule Assumptions](#rule-assumptions)\
 	3.1 [Encounter Levels](#encounter-levels)\
 	3.2 [Encounters](#encounters)\
 	3.3 [Saving Throws](#saving-throws)\
 	3.4 [Distance](#distance)\
-4. [Rolls](#rolls)\
+4. [Rolls](#rolls)
 	4.1 [Attack Rolls](#attack-rolls)\
-5. [Object Tree](#object-model)\
+5. [Object Tree](#object-model)
 	5.1 [UnQLite Collection name: game](#unqlite-collection-name-game)\
 	5.2 [UnQLite Collection name: monsters](#unqlite-collection-name-monsters)\
 	5.3 [LokiJS Collection name: session](#lokijs-collection-name-session)\
-6. [Status Effects](#status-effects)\
+6. [Status Effects](#status-effects)
 ## Introduction 
 This document will serve as a reference to explain the design of the M20 online application.
 
