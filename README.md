@@ -10,7 +10,7 @@ You'll need NodeJS ***(version?)*** and NPM ***(version?)***
 
 ***TODO: fix repo url***
 ```bash
-git clone http://github.com/hylianux/M20JS.git
+git clone https://github.com/hylianux/M20JS.git
 npm install
 node index.js
 ```
