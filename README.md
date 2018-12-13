@@ -8,7 +8,6 @@ You'll need NodeJS ***(version?)*** and NPM ***(version?)***
 
 ## Install and Run
 
-***TODO: fix repo url***
 ```bash
 git clone https://github.com/hylianux/M20JS.git
 npm install
