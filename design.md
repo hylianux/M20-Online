@@ -69,7 +69,9 @@ Encounters can also be set up as AI-controlled.  The monsters' AI is set based o
 ### Saving throws
 The rules as written in M20 state that saving throws are skill checks for 2 of the saving throws, and as a mind+level check for will saves.  The human (and half-elf) gets pluses to skill checks.  But does this apply to saving throws?
 
-M20JS assumes no.  A skill check and a saving throw are 2 different things.  They may be based on the numbers used in a skill check, but they're entirely different outcomes.  For example, in real D&D, a reflex save is not the same thing as an acrobatics check.  A fortitude save is not the same thing as an athletics check.  A will save is not the same thing as an arcana check.
+M20JS allows you to configure this.  The argument can be made that a skill check and a saving throw are 2 different things.  They may be based on the numbers used in a skill check, but they're entirely different outcomes.  For example, in real D&D, a reflex save is not the same thing as an acrobatics check.  A fortitude save is not the same thing as an athletics check.  A will save is not the same thing as an arcana check.
+
+Using the setting `saves_vs_skills : true` will allow for your calculated skill to be used as a saving throw.  This is on by default; if you wish to disable it, set this value to false.
 
 [▲Top](#m20js)
 ### Distance
