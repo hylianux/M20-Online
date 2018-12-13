@@ -2,7 +2,7 @@
 This repository contains the server code needed to run Microlite20JS.  
 
 ## Requirements
-You'll need NodeJS***(version?)*** and NPM***(version?)***
+You'll need NodeJS ***(version?)*** and NPM ***(version?)***
 
 ## Install and Run
 ***TODO: fix repo url***
